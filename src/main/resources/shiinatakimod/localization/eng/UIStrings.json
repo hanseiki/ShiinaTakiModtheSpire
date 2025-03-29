@@ -1,0 +1,38 @@
+{
+  "${modID}:Example": {
+    "TEXT": [
+      "This is",
+      "an array of Strings."
+    ],
+    "EXTRA_TEXT": [
+      "This is another",
+      "array of Strings."
+    ],
+    "TEXT_DICT": {
+      "This": "Contains pairs of Strings, used to get values based on keys.",
+      "This is a key": "This is a value."
+    }
+  },
+
+  "${modID}:DTMAction": {
+    "TEXT": [
+      "选择一张耗能为x的卡，在x回合后，获得x点能量。",
+      "选择",
+      "张耗能为x的卡，在x回合后，获得x点能量。"
+    ]
+  },
+
+  "${modID}:BurokkuShiteYaruAction": {
+    "TEXT": [
+      "解除拉黑。",
+      "拉黑成功。",
+      "对方不处于攻击意图。"
+    ]
+  },
+  "${modID}:KizuiteteWatashiMoRiyoShitetaAction": {
+    "TEXT": [
+      "查看不到意图。",
+      "是攻击意图。"
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "${modID}:ExampleCard": {
+    "NAME": "Name",
+    "DESCRIPTION": "Description. NL Second line.",
+    "UPGRADE_DESCRIPTION": "This will automatically be used if the card is upgraded. Remove it if unneeded.",
+    "EXTENDED_DESCRIPTION": [
+      "You can put more text in here.",
+      "If you need to use it for stuff.",
+      "Blizzard is a good example for this."
+    ]
+  },
+  "${modID}:AttackCard": {
+    "NAME": "攻击牌",
+    "DESCRIPTION": "以下是攻击牌。"
+  },
+
+  "${modID}:Strike": {
+    "NAME": "打击",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 打击乐也是打击。"
+  },
+
+  "${modID}:Defend": {
+    "NAME": "防御",
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 阻碍也是block。"
+  },
+
+  "${modID}:TestGainPowera": {
+    "NAME": "测试：能量回复",
+    "DESCRIPTION": "获得 !M! 点 #y能量回复  。"
+  },
+
+  "${modID}:TestGainPowerb": {
+    "NAME": "测试：抽牌调整",
+    "DESCRIPTION": "获得 !M! 点 #y抽牌调整  。"
+  },
+
+  "${modID}:TestGainPowerc": {
+    "NAME": "测试：抽牌调整",
+    "DESCRIPTION": "获得 !M! 点 #y抽牌调整 倒计时为3 。"
+  },
+  "${modID}:TestGainPowerd": {
+    "NAME": "测试：能量回复",
+    "DESCRIPTION": "获得 !M! 点 #y抽牌调整 倒计时为3 。"
+  },
+
+
+  "${modID}:Saiaku": {
+    "NAME": "最悪",
+    "DESCRIPTION": "你每拥有2个充能球，造成 !D! 点伤害。"
+  },
+  "${modID}:HaShiinaTaki": {
+    "NAME": "哈",
+    "DESCRIPTION": "造成 !D! 点伤害，获得 !B! 点格挡。 NL 每打出一次，这张牌在本局游戏中的格挡值永久性增加 !M! 。 NL 消耗。"
+  },
+  "${modID}:TakiFingers": {
+    "NAME": "立希指",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 造成2点伤害，每2层力量使得伤害翻倍。 NL （向下取整）",
+    "UPGRADE_DESCRIPTION": "造成 !D! 点伤害。 NL 造成2点伤害，每2层力量使得伤害翻倍。 NL （向上取整）"
+  },
+
+
+
+  "${modID}:StressStrike": {
+    "NAME": "压力打击",
+    "DESCRIPTION": "造成 !D! 点伤害。"
+  },
+
+  "${modID}:TwoHitStressStrike": {
+    "NAME": "二连压力打击",
+    "DESCRIPTION": "造成 !D! 点伤害2次。"
+  },
+
+
+  "${modID}:MultiTargetStressStrike": {
+    "NAME": "全体压力打击",
+    "DESCRIPTION": "对所有敌人造成 !D! 点伤害。"
+  },
+
+  "${modID}:MamakoStressStrike": {
+    "NAME": "全体二连压力打击",
+    "DESCRIPTION": "对所有敌人造成 !D! 点伤害2次。"
+  },
+
+  "${modID}:SkillCard": {
+    "NAME": "技能牌",
+    "DESCRIPTION": "以下是技能牌。"
+  },
+
+  "${modID}:BurokkuShiteYaru": {
+    "NAME": "拉黑",
+    "DESCRIPTION": "获得 !B! 点格挡。 NL  拉黑一个攻击意图的敌人，获得 !M! 层金属化。 NL 或者解除拉黑，并失去金属化。 "
+  },
+
+  "${modID}:DTM": {
+    "NAME":"DTM（暂时是搜寻3）",
+    "DESCRIPTION": "从抽牌堆选择一张牌。X回合后，获得X点能量和一张这张牌的复制。X是这张牌的耗能。",
+    "UPGRADE_DESCRIPTION": "从抽牌堆选择一张牌。X回合后，获得X点能量、2X点格挡和一张这张牌的复制。X是这张牌的耗能。"
+  },
+
+  "${modID}:KizuiteteWatashiMoRiyoShiteta": {
+    "NAME": "利用",
+    "DESCRIPTION": "选择一个敌人。 NL 攻击意图：抽一张攻击牌。 NL 否则抽 !M! 张技能牌，获得 !M! 点能量，无法打出攻击牌。 "
+  },
+
+  "${modID}:PowerCard": {
+    "NAME": "能力牌",
+    "DESCRIPTION": "以下是能力牌。"
+  },
+
+  "${modID}:STRUnderStress": {
+    "NAME": "压力力量",
+    "DESCRIPTION": "获得 !M! 点力量。"
+  },
+
+  "${modID}:DEXUnderStress": {
+    "NAME": "压力敏捷",
+    "DESCRIPTION": "获得 !M! 点敏捷。"
+  },
+
+  "${modID}:INTUnderStress": {
+    "NAME": "压力智力",
+    "DESCRIPTION": "获得 !M! 点回合开始抽牌。"
+  },
+
+  "${modID}:StatusCard": {
+    "NAME": "状态牌",
+    "DESCRIPTION": "以下是状态牌。"
+  },
+
+  "${modID}:CurseCard": {
+    "NAME": "诅咒牌",
+    "DESCRIPTION": "以下是诅咒牌。"
+  }
+}

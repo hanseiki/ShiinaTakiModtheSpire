@@ -1,0 +1,24 @@
+{
+  "${modID}:OrbID": {
+    "NAME": "Orb Name",
+    "DESCRIPTION": [
+      "#yPassive: At the start of your turn, draw #b",
+      " card.",
+      " cards.",
+      " NL #yEvoke: Deal #b",
+      " damage to all enemies."
+    ]
+  },
+
+  "${modID}:NormalStressOrb": {
+    "NAME": "压力球",
+    "DESCRIPTION": [
+      "倒计时： #b",
+      " 回合后，弃一张牌，并获得下回合抽牌减少 #b",
+      " 张。 NL ",
+      " 激发： #b",
+      " 失去 [E] ，并获得下回合充能减少 #b",
+      " 点。 NL"
+    ]
+  }
+}
