@@ -35,52 +35,82 @@ public class TakiFingers extends BaseCard {
 
     @Override
     public void applyPowers() {
-        AbstractPower strength = AbstractDungeon.player.getPower("Strength");
-        int tmpstrength = 0;
+        int tmpStrength = 0;
+        int tmpVigor = 0;
         int exponent = 0;
+
+        AbstractPower strength = AbstractDungeon.player.getPower("Strength");
+        AbstractPower vigor = AbstractDungeon.player.getPower("Vigor");
+
         if (strength != null){
-            tmpstrength = strength.amount;
+            tmpStrength = strength.amount;
             strength.amount = 0;//在super.applyPowers();中视为0
         }
-        if(this.upgraded){//升级效果
-            exponent = (int)( 1 + tmpstrength ) / 2;//向上取整
-        }else{
-            exponent = (int)tmpstrength / 2;//向下取整
+        if (vigor != null){
+            tmpVigor = vigor.amount;
+            vigor.amount = 0;//在super.applyPowers();中视为0
         }
+
+        if(this.upgraded){
+            exponent = (int)(( 1 + tmpStrength ) / 2 +( 3 + tmpVigor) / 4);
+        }else{
+            exponent = (int)(( tmpStrength ) / 2 +( tmpVigor) / 4);
+        }
+
         if(exponent>20){//指数最大为20，防止溢出
             exponent =20;
         }
         this.baseDamage = this.baseMagicNumber * (int) Math.pow(2,exponent);
         super.applyPowers();
+
         if (strength != null){
-            strength.amount = tmpstrength;//恢复正常数值
+            strength.amount = tmpStrength;//恢复正常数值
+        }
+        if (vigor != null){
+            vigor.amount = tmpVigor;//恢复正常数值
         }
 
         initializeDescription();
     }
 
+
     @Override
     public void calculateCardDamage(AbstractMonster mo) {
-        AbstractPower strength = AbstractDungeon.player.getPower("Strength");
-        int tmpstrength = 0;
+        int tmpStrength = 0;
+        int tmpVigor = 0;
         int exponent = 0;
+
+        AbstractPower strength = AbstractDungeon.player.getPower("Strength");
+        AbstractPower vigor = AbstractDungeon.player.getPower("Vigor");
+
         if (strength != null){
-            tmpstrength = strength.amount;
+            tmpStrength = strength.amount;
             strength.amount = 0;
         }
-        if(this.upgraded){
-            exponent = (int)( 1 + tmpstrength ) / 2;
-        }else{
-            exponent = (int)tmpstrength / 2;
+        if (vigor != null){
+            tmpVigor = vigor.amount;
+            vigor.amount = 0;//在super.applyPowers();中视为0
         }
+
+        if(this.upgraded){
+            exponent = (int)(( 1 + tmpStrength ) / 2 +( 3 + tmpVigor) / 4);
+        }else{
+            exponent = (int)(( tmpStrength ) / 2 +( tmpVigor) / 4);
+        }
+        
         if(exponent>20){
             exponent =20;
         }
         this.baseDamage = this.baseMagicNumber * (int) Math.pow(2,exponent);
         super.calculateCardDamage(mo);
         if (strength != null){
-            strength.amount = tmpstrength;
+            strength.amount = tmpStrength;
         }
+        if (vigor != null){
+            vigor.amount = tmpVigor;//恢复正常数值
+        }
+
+        initializeDescription();
     }
 
     @Override

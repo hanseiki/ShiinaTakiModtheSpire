@@ -54,8 +54,8 @@
   },
   "${modID}:TakiFingers": {
     "NAME": "立希指",
-    "DESCRIPTION": "造成 !D! 点伤害。 NL 造成2点伤害，每2层力量使得伤害翻倍。 NL （向下取整）",
-    "UPGRADE_DESCRIPTION": "造成 !D! 点伤害。 NL 造成2点伤害，每2层力量使得伤害翻倍。 NL （向上取整）"
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 造成2点伤害，每2层力量或每4层活力使得伤害翻倍。 NL （向下取整）",
+    "UPGRADE_DESCRIPTION": "造成 !D! 点伤害。 NL 造成2点伤害，每2层力量或每4层活力使得伤害翻倍。 NL （向上取整）"
   },
 
 

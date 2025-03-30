@@ -46,7 +46,8 @@ public class NormalStressOrb extends ShiinaTakiOrb{
     }
 
     public void onCount(){//计数器触发时，弃1张牌，下回合减evokeAmount抽牌
-        AbstractDungeon.actionManager.addToBottom(
+       /*
+       AbstractDungeon.actionManager.addToBottom(
                 new DiscardAction(
                         p,
                         p,
@@ -54,6 +55,8 @@ public class NormalStressOrb extends ShiinaTakiOrb{
                         false
                 )
         );
+
+        */
         if(this.evokeAmount>0){
             AbstractDungeon.actionManager.addToBottom(
                     new ApplyPowerAction(
@@ -68,9 +71,12 @@ public class NormalStressOrb extends ShiinaTakiOrb{
     }
 
     public void onEvoke(){//激发时，减少1能量，下回合减evokeAmount能量
+        /*
         AbstractDungeon.actionManager.addToBottom(
                 new LoseEnergyAction(1)
         );
+
+         */
 
         if(this.evokeAmount>0){
             AbstractDungeon.actionManager.addToBottom(
