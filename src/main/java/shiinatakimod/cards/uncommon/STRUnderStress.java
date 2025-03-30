@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.powers.StrengthPower;
 import shiinatakimod.cards.BaseCard;
 import shiinatakimod.cards.basic.Strike;
 import shiinatakimod.characters.ShiinaTakiCharacter;
+import shiinatakimod.powers.STRConvertOrbPower;
 import shiinatakimod.util.CardStats;
 
 public class STRUnderStress
@@ -22,8 +23,8 @@ public class STRUnderStress
 
     //These will be used in the constructor. Technically you can just use the values directly,
     //but constants at the top of the file are easy to adjust.
-    private static final int STR = 2;
-    private static final int UPG_STR = 1;
+    private static final int STR = 1;
+    private static final int UPG_STR = 0;
 
     public STRUnderStress() {
         super(ID, info); //Pass the required information to the BaseCard constructor.
@@ -37,6 +38,9 @@ public class STRUnderStress
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(
                 new ApplyPowerAction(p,p,new StrengthPower(p,magicNumber),magicNumber)
+        );
+        addToBot(
+                new ApplyPowerAction(p,p,new STRConvertOrbPower(p,magicNumber),magicNumber)
         );
 
     }

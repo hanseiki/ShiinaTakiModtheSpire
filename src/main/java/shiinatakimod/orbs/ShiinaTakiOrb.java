@@ -29,6 +29,9 @@ public abstract class ShiinaTakiOrb extends AbstractOrb {
     protected int baseOnEndAmount = 0;
     protected int onEndAmount = 0;
 
+    private static int orbIDCount;
+    private int orbIDOffset;
+
 
     public  ShiinaTakiOrb()
     {
@@ -85,6 +88,8 @@ public abstract class ShiinaTakiOrb extends AbstractOrb {
         this.baseOnRemoveAmount = baseOnRemoveAmount;
         this.onRemoveAmount = this.baseOnRemoveAmount;
 
+        this.orbIDOffset = this.orbIDCount;
+        this.orbIDCount ++;
 
         if (imgPath != null) {
             this.img = (Texture)orbTextures.get(imgPath);
@@ -102,6 +107,11 @@ public abstract class ShiinaTakiOrb extends AbstractOrb {
 
     public void onRemove() {
 
+    }
+
+    @Override
+    public void applyFocus(){
+        //什么都不做
     }
 
 
@@ -148,8 +158,21 @@ public abstract class ShiinaTakiOrb extends AbstractOrb {
 
     @Override
     protected void renderText(SpriteBatch sb) {
-        FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, Integer.toString(this.evokeAmount), this.cX + NUM_X_OFFSET, this.cY + this.bobEffect.y / 2.0F + NUM_Y_OFFSET - 4.0F * Settings.scale, new Color(0.2F, 1.0F, 1.0F, this.c.a), this.fontScale);
-        FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, Integer.toString(this.passiveAmount), this.cX + NUM_X_OFFSET, this.cY + this.bobEffect.y / 2.0F + NUM_Y_OFFSET + 20.0F * Settings.scale, this.c, this.fontScale);
+        FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
+                Integer.toString(this.evokeAmount),
+                this.cX + NUM_X_OFFSET, this.cY + this.bobEffect.y / 2.0F + NUM_Y_OFFSET - 4.0F * Settings.scale,
+                new Color(0.2F, 1.0F, 1.0F, this.c.a),
+                this.fontScale);
+        FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
+                Integer.toString(this.passiveAmount),
+                this.cX + NUM_X_OFFSET, this.cY + this.bobEffect.y / 2.0F + NUM_Y_OFFSET + 20.0F * Settings.scale,
+                this.c,
+                this.fontScale);
+        FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
+                Integer.toString(this.orbIDOffset),
+                this.cX - NUM_X_OFFSET, this.cY + this.bobEffect.y / 2.0F + NUM_Y_OFFSET + 20.0F * Settings.scale,
+                this.c,
+                this.fontScale);
     }
 
     // 播放 Orb 的通道音效（抽象方法，子类必须实现）
@@ -157,4 +180,10 @@ public abstract class ShiinaTakiOrb extends AbstractOrb {
     public void playChannelSFX() {
 
     }
+
+    // 在 ShiinaTakiOrb 类中添加
+    public int getPassiveAmount() { return passiveAmount; }
+    public int getEvokeAmount() { return evokeAmount; }
+    public void setPassiveAmount(int value) { passiveAmount = value; }
+    public void setEvokeAmount(int value) { evokeAmount = value; }
 }

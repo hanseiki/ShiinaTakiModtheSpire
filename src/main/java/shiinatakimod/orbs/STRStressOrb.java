@@ -26,9 +26,24 @@ public class STRStressOrb extends ShiinaTakiOrb{
     public STRStressOrb(){
         super(ID, NAME, DESC,IMG_PATH,
                 0,1);
-        this.onChannelAmount =1 ;
 
     }
+
+    public STRStressOrb(int passiveAmount, int evokeAmount){
+        super(
+                ID,
+                NAME,
+                DESC,
+                IMG_PATH,
+                0,                // basePassiveAmount
+                passiveAmount,     // 当前 passiveAmount
+                1,       // baseEvokeAmount（根据设计需求决定是否与当前值同步）
+                evokeAmount,       // 当前 evokeAmount
+                0, 0, 0, 0
+        );
+        System.out.println("[DEBUG] 新 Orb 创建 - passive: " + this.passiveAmount + ", evoke: " + this.evokeAmount);
+    }
+
 
 
     public void onStartOfTurn() {

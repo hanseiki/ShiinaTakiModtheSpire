@@ -3,8 +3,8 @@ package shiinatakimod.orbs;
 import com.megacrit.cardcrawl.actions.defect.AnimateOrbAction;
 import com.megacrit.cardcrawl.actions.defect.ChannelAction;
 import com.megacrit.cardcrawl.actions.defect.EvokeOrbAction;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.Dark;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
@@ -14,13 +14,17 @@ import com.megacrit.cardcrawl.orbs.Plasma;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
-import shiinatakimod.actions.TakiChannelAction;
-import java.util.ArrayList;
+
 import java.util.Collections;
 
 import static com.megacrit.cardcrawl.characters.AbstractPlayer.MSG;
+import static shiinatakimod.ShiinaTakiBasicMod.makeID;
 
 public class TakiOrbsManager {
+    public static final String ID = makeID("TakiOrbsManager");
+
+    private static final UIStrings UIStrings = CardCrawlGame.languagePack.getUIString(ID);
+    private static final String[] TEXT = UIStrings.TEXT;
 
     public void triggerEvokeAnimation(int slot) {
         if (AbstractDungeon.player.maxOrbs > 0) {
@@ -221,4 +225,92 @@ public class TakiOrbsManager {
         }
 
     }
+
+
+
+    public static void convertNextOrb(Class<? extends AbstractOrb> orbToSet) {
+        if (AbstractDungeon.player.maxOrbs <= 0) {
+            AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 3.0F, MSG[4], true));
+
+        } else {
+            if (AbstractDungeon.player.maxOrbs > 0) {
+                int index = -1;
+
+                for(int i = 0; i < AbstractDungeon.player.orbs.size(); ++i) {
+                    if (AbstractDungeon.player.orbs.get(i) instanceof NormalStressOrb) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                if (index != -1) {
+                    AbstractOrb oldOrb = AbstractDungeon.player.orbs.get(index);
+                    if (oldOrb == null) {
+                        return; // 防止 oldOrb 为 null
+                    }
+                    // 动态创建新 Orb 实例（根据目标类型）
+                    AbstractOrb newOrb = createNewOrb(orbToSet, oldOrb);
+                    if (newOrb == null) {
+                        return; // 或抛出错误日志
+                    }
+                    // 设置坐标等逻辑
+                    newOrb.cX = oldOrb.cX;//orbToSet.cX = ((AbstractOrb)AbstractDungeon.player.orbs.get(index)).cX;
+                    newOrb.cY = oldOrb.cY;//orbToSet.cY = ((AbstractOrb)AbstractDungeon.player.orbs.get(index)).cY;
+
+                    // 触发旧 Orb 的 onRemove
+                    if (oldOrb instanceof ShiinaTakiOrb) {
+                        ((ShiinaTakiOrb) oldOrb).onRemove();
+                    }
+                    // 替换 Orb
+                    AbstractDungeon.player.orbs.set(index, newOrb);//AbstractDungeon.player.orbs.set(index, orbToSet);
+                    newOrb.setSlot(index, AbstractDungeon.player.maxOrbs);//((AbstractOrb)AbstractDungeon.player.orbs.get(index)).setSlot(index, AbstractDungeon.player.maxOrbs);
+                    newOrb.playChannelSFX();
+                    // 触发新 Orb 的 onChannel
+                    if(newOrb instanceof ShiinaTakiOrb){
+                        ((ShiinaTakiOrb) newOrb).onChannel();
+                    }
+
+                    for(AbstractPower p : AbstractDungeon.player.powers) {
+                        p.onChannel(newOrb);
+                    }
+
+                    AbstractDungeon.actionManager.orbsChanneledThisCombat.add(newOrb);
+                    AbstractDungeon.actionManager.orbsChanneledThisTurn.add(newOrb);
+
+                    newOrb.applyFocus();
+                } else {
+                    /*
+                    AbstractDungeon.actionManager.addToTop(new ChannelAction(orbToSet));
+                    AbstractDungeon.actionManager.addToTop(new EvokeOrbAction(1));
+                    AbstractDungeon.actionManager.addToTop(new AnimateOrbAction(1));
+                     */
+                    AbstractDungeon.effectList.add(
+                            new ThoughtBubble(
+                                    AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY,
+                                    3.0F, TEXT[0], true
+                            )
+                    );
+                }
+            }
+
+        }
+    }
+
+    private static AbstractOrb createNewOrb(Class<? extends AbstractOrb> orbClass, AbstractOrb oldOrb) {
+        if (orbClass == STRStressOrb.class && oldOrb instanceof ShiinaTakiOrb) {
+            ShiinaTakiOrb oldTakiOrb = (ShiinaTakiOrb) oldOrb;
+            // 动态创建新 Orb，并传递旧 Orb 的属性
+            return new STRStressOrb(
+                    oldTakiOrb.passiveAmount, // 当前 passiveAmount
+                    oldTakiOrb.evokeAmount    // 当前 evokeAmount
+            );
+        } else {
+            // 默认返回 EmptyOrbSlot 或其他安全 Orb
+            return new EmptyOrbSlot(); // 或抛出错误日志
+        }
+        // 处理其他 Orb 类型的创建（若有）
+        //return null;
+    }
+
+
 }
