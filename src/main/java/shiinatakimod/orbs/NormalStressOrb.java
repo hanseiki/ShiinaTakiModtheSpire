@@ -30,7 +30,13 @@ public class NormalStressOrb extends ShiinaTakiOrb{
 
     public NormalStressOrb(){
         super(ID, NAME, DESC,IMG_PATH,
-                0,1);
+                0,0);
+
+    }
+
+    public NormalStressOrb(int passiveAmount, int evokeAmount){
+        super(ID, NAME, DESC,IMG_PATH,
+                0,passiveAmount,0,evokeAmount);
 
     }
 
@@ -39,9 +45,6 @@ public class NormalStressOrb extends ShiinaTakiOrb{
         this.passiveAmount ++;//回合开始时计数器+1
         if(this.passiveAmount > 2){//计数器为0时
             this.onCount();//触发计数器的特效
-            this.evokeAmount ++;//evoke升级
-            this.passiveAmount = this.basePassiveAmount;//计数器归零
-
         };
     }
 
@@ -67,6 +70,8 @@ public class NormalStressOrb extends ShiinaTakiOrb{
                     )
             );
         }
+        this.evokeAmount ++;//evoke升级
+        this.passiveAmount = this.basePassiveAmount;//计数器归零
 
     }
 

@@ -11,12 +11,13 @@ import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import shiinatakimod.ShiinaTakiBasicMod;
+import shiinatakimod.actions.ConvertOrbAction;
 import shiinatakimod.powers.DrawNextTurnPower;
 import shiinatakimod.powers.EnergizedNextTurnPower;
 
 public class STRStressOrb extends ShiinaTakiOrb{
 
-    public static final String ID = ShiinaTakiBasicMod.makeID("NormalStressOrb");
+    public static final String ID = ShiinaTakiBasicMod.makeID("STRStressOrb");
     private static final OrbStrings orbString = CardCrawlGame.languagePack.getOrbString(ID);
     private static final String NAME = orbString.NAME;
     private static final String[] DESC = orbString.DESCRIPTION;
@@ -25,21 +26,14 @@ public class STRStressOrb extends ShiinaTakiOrb{
 
     public STRStressOrb(){
         super(ID, NAME, DESC,IMG_PATH,
-                0,1);
+                0,0);
 
     }
 
     public STRStressOrb(int passiveAmount, int evokeAmount){
         super(
-                ID,
-                NAME,
-                DESC,
-                IMG_PATH,
-                0,                // basePassiveAmount
-                passiveAmount,     // 当前 passiveAmount
-                1,       // baseEvokeAmount（根据设计需求决定是否与当前值同步）
-                evokeAmount,       // 当前 evokeAmount
-                0, 0, 0, 0
+                ID, NAME, DESC, IMG_PATH,
+                0, passiveAmount, 0, evokeAmount
         );
         System.out.println("[DEBUG] 新 Orb 创建 - passive: " + this.passiveAmount + ", evoke: " + this.evokeAmount);
     }
@@ -50,14 +44,11 @@ public class STRStressOrb extends ShiinaTakiOrb{
         this.passiveAmount ++;//回合开始时计数器+1
         if(this.passiveAmount > 2){//计数器为0时
             this.onCount();//触发计数器的特效
-            this.evokeAmount ++;//evoke升级
-            this.passiveAmount = this.basePassiveAmount;//计数器归零
-
         };
     }
 
     public void onCount(){//计数器触发时，弃1张牌，下回合减evokeAmount抽牌
-        AbstractDungeon.actionManager.addToBottom(
+        /*AbstractDungeon.actionManager.addToBottom(
                 new DiscardAction(
                         p,
                         p,
@@ -65,6 +56,8 @@ public class STRStressOrb extends ShiinaTakiOrb{
                         false
                 )
         );
+
+         */
         if(this.evokeAmount>0){
             AbstractDungeon.actionManager.addToBottom(
                     new ApplyPowerAction(
@@ -75,13 +68,22 @@ public class STRStressOrb extends ShiinaTakiOrb{
                     )
             );
         }
-
+        this.evokeAmount ++;//evoke升级
+        this.passiveAmount = this.basePassiveAmount;//计数器归零
+        AbstractDungeon.actionManager.addToBottom(
+                new ConvertOrbAction(
+                        STRStressOrb.class,NormalStressOrb.class,
+                        this.passiveAmount,this.evokeAmount
+                )
+        );
     }
 
     public void onEvoke(){//激发时，减少1能量，下回合减evokeAmount能量
-        AbstractDungeon.actionManager.addToBottom(
+        /*AbstractDungeon.actionManager.addToBottom(
                 new LoseEnergyAction(1)
         );
+
+         */
 
         if(this.evokeAmount>0){
             AbstractDungeon.actionManager.addToBottom(
@@ -102,8 +104,8 @@ public class STRStressOrb extends ShiinaTakiOrb{
                 new ApplyPowerAction(
                         p,
                         p,
-                        new StrengthPower(p,this.baseEvokeAmount),
-                        this.baseEvokeAmount
+                        new StrengthPower(p,1),
+                        1
                 )
         );
     }
@@ -114,8 +116,8 @@ public class STRStressOrb extends ShiinaTakiOrb{
                 new ApplyPowerAction(
                         p,
                         p,
-                        new StrengthPower(p,-this.baseEvokeAmount),
-                        -this.baseEvokeAmount
+                        new StrengthPower(p,-1),
+                        -1
                 )
         );
     }

@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 
+import java.lang.reflect.Constructor;
 import java.util.Collections;
 
 import static com.megacrit.cardcrawl.characters.AbstractPlayer.MSG;
@@ -228,7 +229,12 @@ public class TakiOrbsManager {
 
 
 
-    public static void convertNextOrb(Class<? extends AbstractOrb> orbToSet) {
+    public static void convertNextOrb(
+            Class<? extends AbstractOrb> sourceOrbType, // 要替换的原始 Orb 类型
+            Class<? extends AbstractOrb> targetOrbType,// 目标 Orb 类型
+            int passiveAmount,
+            int evokeAmount
+    ) {
         if (AbstractDungeon.player.maxOrbs <= 0) {
             AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 3.0F, MSG[4], true));
 
@@ -237,22 +243,32 @@ public class TakiOrbsManager {
                 int index = -1;
 
                 for(int i = 0; i < AbstractDungeon.player.orbs.size(); ++i) {
-                    if (AbstractDungeon.player.orbs.get(i) instanceof NormalStressOrb) {
-                        index = i;
-                        break;
+                    if (sourceOrbType.isInstance(AbstractDungeon.player.orbs.get(i))) {//AbstractDungeon.player.orbs.get(i) instanceof NormalStressOrb
+                        if(passiveAmount == -1 && evokeAmount==-1){
+                            index = i;
+                            break;
+                        }
+                        if(((ShiinaTakiOrb) AbstractDungeon.player.orbs.get(i)).getPassiveAmount() == passiveAmount
+                                &&((ShiinaTakiOrb) AbstractDungeon.player.orbs.get(i)).getEvokeAmount() == evokeAmount
+                        ){
+                            index = i;
+                            break;
+                        }
+
                     }
                 }
 
                 if (index != -1) {
                     AbstractOrb oldOrb = AbstractDungeon.player.orbs.get(index);
-                    if (oldOrb == null) {
-                        return; // 防止 oldOrb 为 null
+                    AbstractOrb newOrb;
+                    if(passiveAmount == -1
+                            && evokeAmount == -1
+                    ){
+                        newOrb = createOrbWithInheritance(targetOrbType, oldOrb);
+                    }else {
+                        newOrb = createOrbWithoutInheritance(targetOrbType,passiveAmount,evokeAmount);
                     }
-                    // 动态创建新 Orb 实例（根据目标类型）
-                    AbstractOrb newOrb = createNewOrb(orbToSet, oldOrb);
-                    if (newOrb == null) {
-                        return; // 或抛出错误日志
-                    }
+
                     // 设置坐标等逻辑
                     newOrb.cX = oldOrb.cX;//orbToSet.cX = ((AbstractOrb)AbstractDungeon.player.orbs.get(index)).cX;
                     newOrb.cY = oldOrb.cY;//orbToSet.cY = ((AbstractOrb)AbstractDungeon.player.orbs.get(index)).cY;
@@ -277,7 +293,7 @@ public class TakiOrbsManager {
                     AbstractDungeon.actionManager.orbsChanneledThisCombat.add(newOrb);
                     AbstractDungeon.actionManager.orbsChanneledThisTurn.add(newOrb);
 
-                    newOrb.applyFocus();
+                    //newOrb.applyFocus();
                 } else {
                     /*
                     AbstractDungeon.actionManager.addToTop(new ChannelAction(orbToSet));
@@ -296,20 +312,55 @@ public class TakiOrbsManager {
         }
     }
 
-    private static AbstractOrb createNewOrb(Class<? extends AbstractOrb> orbClass, AbstractOrb oldOrb) {
-        if (orbClass == STRStressOrb.class && oldOrb instanceof ShiinaTakiOrb) {
-            ShiinaTakiOrb oldTakiOrb = (ShiinaTakiOrb) oldOrb;
-            // 动态创建新 Orb，并传递旧 Orb 的属性
-            return new STRStressOrb(
-                    oldTakiOrb.passiveAmount, // 当前 passiveAmount
-                    oldTakiOrb.evokeAmount    // 当前 evokeAmount
-            );
-        } else {
-            // 默认返回 EmptyOrbSlot 或其他安全 Orb
-            return new EmptyOrbSlot(); // 或抛出错误日志
+    private static AbstractOrb createOrbWithInheritance(
+            Class<? extends AbstractOrb> targetOrbType,
+            AbstractOrb oldOrb
+    ) {
+        try {
+            // 如果旧 Orb 是 ShiinaTakiOrb 子类，且目标类有对应构造函数
+            if (oldOrb instanceof ShiinaTakiOrb
+                    && ShiinaTakiOrb.class.isAssignableFrom(targetOrbType)){
+                ShiinaTakiOrb oldTaki = (ShiinaTakiOrb) oldOrb;
+                // 尝试通过反射调用目标类的构造函数（需提前定义）
+                Constructor<?> constructor = targetOrbType.getConstructor(int.class, int.class);
+                return (AbstractOrb) constructor.newInstance(
+                        oldTaki.passiveAmount,
+                        oldTaki.evokeAmount
+                );
+            } else {
+                // 默认无参构造
+                return targetOrbType.newInstance();
+            }
+        } catch (Exception e) {
+            // 异常处理（例如目标类无合适构造函数）
+            e.printStackTrace();
+            return new EmptyOrbSlot();
         }
-        // 处理其他 Orb 类型的创建（若有）
-        //return null;
+    }
+
+    private static AbstractOrb createOrbWithoutInheritance(
+            Class<? extends AbstractOrb> targetOrbType,
+            int passiveAmount,
+            int evokeAmount
+    ) {
+        try {
+            // 如果旧 Orb 是 ShiinaTakiOrb 子类，且目标类有对应构造函数
+            if (ShiinaTakiOrb.class.isAssignableFrom(targetOrbType)){
+                // 尝试通过反射调用目标类的构造函数（需提前定义）
+                Constructor<?> constructor = targetOrbType.getConstructor(int.class, int.class);
+                return (AbstractOrb) constructor.newInstance(
+                        passiveAmount,
+                        evokeAmount
+                );
+            } else {
+                // 默认无参构造
+                return targetOrbType.newInstance();
+            }
+        } catch (Exception e) {
+            // 异常处理（例如目标类无合适构造函数）
+            e.printStackTrace();
+            return new EmptyOrbSlot();
+        }
     }
 
 
