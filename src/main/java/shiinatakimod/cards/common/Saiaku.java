@@ -33,7 +33,7 @@ public class Saiaku
         setDamage(DAMAGE);
         setCostUpgrade(UPG_COST);
 
-        tags.add(CardTags.STRIKE);
+
     }
 
     @Override

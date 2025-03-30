@@ -7,9 +7,8 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import shiinatakimod.cards.BaseCard;
-import shiinatakimod.cards.basic.Strike;
 import shiinatakimod.characters.ShiinaTakiCharacter;
-import shiinatakimod.orbs.NormalStressOrb;
+import shiinatakimod.orbs.FutsuStressOrb;
 import shiinatakimod.util.CardStats;
 
 public class TwoHitStressStrike
@@ -63,7 +62,7 @@ public class TwoHitStressStrike
         for(int i=0; i<this.cost ; i++){
             addToBot(
                     new ChannelAction(
-                            new NormalStressOrb()
+                            new FutsuStressOrb()
                     )
             );
         }

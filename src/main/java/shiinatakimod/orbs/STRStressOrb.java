@@ -2,8 +2,6 @@ package shiinatakimod.orbs;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.DiscardAction;
-import com.megacrit.cardcrawl.actions.unique.LoseEnergyAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -72,7 +70,7 @@ public class STRStressOrb
         this.passiveAmount = this.basePassiveAmount;//计数器归零
         AbstractDungeon.actionManager.addToBottom(
                 new ConvertOrbAction(
-                        STRStressOrb.class,NormalStressOrb.class,
+                        STRStressOrb.class, FutsuStressOrb.class,
                         this.passiveAmount,this.evokeAmount
                 )
         );

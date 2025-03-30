@@ -7,9 +7,8 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import shiinatakimod.actions.ConvertOrbAction;
+import shiinatakimod.orbs.FutsuStressOrb;
 import shiinatakimod.orbs.INTStressOrb;
-import shiinatakimod.orbs.NormalStressOrb;
-import shiinatakimod.orbs.STRStressOrb;
 
 import static shiinatakimod.ShiinaTakiBasicMod.makeID;
 
@@ -32,7 +31,7 @@ public class INTConvertOrbPower
         if(card.type == AbstractCard.CardType.POWER){
             // 不再直接创建 STRStressOrb，而是触发转换逻辑
             for (int i = 0; i < this.amount; ++i) {
-                addToBot(new ConvertOrbAction(NormalStressOrb.class, INTStressOrb.class)); // 传递目标 Orb 类型
+                addToBot(new ConvertOrbAction(FutsuStressOrb.class, INTStressOrb.class)); // 传递目标 Orb 类型
             }
         }
     }

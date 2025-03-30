@@ -243,7 +243,7 @@ public class TakiOrbsManager {
                 int index = -1;
 
                 for(int i = 0; i < AbstractDungeon.player.orbs.size(); ++i) {
-                    if (sourceOrbType.isInstance(AbstractDungeon.player.orbs.get(i))) {//AbstractDungeon.player.orbs.get(i) instanceof NormalStressOrb
+                    if (sourceOrbType.isInstance(AbstractDungeon.player.orbs.get(i))) {//AbstractDungeon.player.orbs.get(i) instanceof FutsuStressOrb
                         if(passiveAmount == -1 && evokeAmount==-1){
                             index = i;
                             break;

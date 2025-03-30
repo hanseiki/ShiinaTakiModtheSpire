@@ -86,6 +86,11 @@
     "DESCRIPTION": "以下是技能牌。"
   },
 
+  "${modID}:Shabetta": {
+    "NAME": "说话了",
+    "DESCRIPTION": "每个空球获得1点下回合格挡。 NL  不多于4个压力球，获得 !M! 点活力。 NL 不多于2个压力球，获得 !M! 点活力。。 "
+  },
+
   "${modID}:BurokkuShiteYaru": {
     "NAME": "拉黑",
     "DESCRIPTION": "获得 !B! 点格挡。 NL  拉黑一个攻击意图的敌人，获得 !M! 层金属化。 NL 或者解除拉黑，并失去金属化。 "

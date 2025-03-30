@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import shiinatakimod.cards.BaseCard;
 import shiinatakimod.characters.ShiinaTakiCharacter;
-import shiinatakimod.orbs.NormalStressOrb;
+import shiinatakimod.orbs.FutsuStressOrb;
 import shiinatakimod.util.CardStats;
 
 public class MamakoStressStrike
@@ -56,7 +56,7 @@ public class MamakoStressStrike
         for(int i=0; i<this.cost ; i++){
             addToBot(
                     new ChannelAction(
-                            new NormalStressOrb()
+                            new FutsuStressOrb()
                     )
             );
         }

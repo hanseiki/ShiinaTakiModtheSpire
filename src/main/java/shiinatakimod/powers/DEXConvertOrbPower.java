@@ -8,8 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import shiinatakimod.actions.ConvertOrbAction;
 import shiinatakimod.orbs.DEXStressOrb;
-import shiinatakimod.orbs.NormalStressOrb;
-import shiinatakimod.orbs.STRStressOrb;
+import shiinatakimod.orbs.FutsuStressOrb;
 
 import static shiinatakimod.ShiinaTakiBasicMod.makeID;
 
@@ -31,7 +30,7 @@ public class DEXConvertOrbPower extends BasePower {
         if(card.type == AbstractCard.CardType.SKILL){
             // 不再直接创建 DEXtressOrb，而是触发转换逻辑
             for (int i = 0; i < this.amount; ++i) {
-                addToBot(new ConvertOrbAction(NormalStressOrb.class, DEXStressOrb.class)); // 传递目标 Orb 类型
+                addToBot(new ConvertOrbAction(FutsuStressOrb.class, DEXStressOrb.class)); // 传递目标 Orb 类型
             }
         }
     }

@@ -1,11 +1,7 @@
 package shiinatakimod.actions;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
-import shiinatakimod.orbs.NormalStressOrb;
-import shiinatakimod.orbs.STRStressOrb;
 import shiinatakimod.orbs.TakiOrbsManager;
 
 public class ConvertOrbAction extends AbstractGameAction {

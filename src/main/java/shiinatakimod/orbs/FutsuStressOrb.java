@@ -1,40 +1,32 @@
 package shiinatakimod.orbs;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.DiscardAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
-import com.megacrit.cardcrawl.actions.unique.LoseEnergyAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
-import com.megacrit.cardcrawl.powers.DrawPower;
-import com.megacrit.cardcrawl.powers.DrawReductionPower;
-import com.megacrit.cardcrawl.powers.EnergizedPower;
-import com.megacrit.cardcrawl.powers.VulnerablePower;
 import shiinatakimod.ShiinaTakiBasicMod;
 import shiinatakimod.powers.DrawNextTurnPower;
 import shiinatakimod.powers.EnergizedNextTurnPower;
 
-public class NormalStressOrb extends ShiinaTakiOrb{
+public class FutsuStressOrb extends ShiinaTakiOrb{
 
-    public static final String ID = ShiinaTakiBasicMod.makeID("NormalStressOrb");
+    public static final String ID = ShiinaTakiBasicMod.makeID("FutsuStressOrb");
     private static final OrbStrings orbString = CardCrawlGame.languagePack.getOrbString(ID);
     private static final String NAME = orbString.NAME;
     private static final String[] DESC = orbString.DESCRIPTION;
     private static final String IMG_PATH ="";
     private final AbstractPlayer p = AbstractDungeon.player;
 
-    public NormalStressOrb(){
+    public FutsuStressOrb(){
         super(ID, NAME, DESC,IMG_PATH,
                 0,0);
 
     }
 
-    public NormalStressOrb(int passiveAmount, int evokeAmount){
+    public FutsuStressOrb(int passiveAmount, int evokeAmount){
         super(ID, NAME, DESC,IMG_PATH,
                 0,passiveAmount,0,evokeAmount);
 

@@ -11,7 +11,7 @@
   },
 
   "${modID}:NormalStressOrb": {
-    "NAME": "压力球",
+    "NAME": "普通压力球",
     "DESCRIPTION": [
       "倒计时： #b",
       " 回合后，弃一张牌，并获得下回合抽牌减少 #b",

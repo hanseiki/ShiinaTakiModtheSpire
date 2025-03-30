@@ -9,8 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import shiinatakimod.cards.BaseCard;
 
 import shiinatakimod.characters.ShiinaTakiCharacter;
-import shiinatakimod.orbs.NormalStressOrb;
-import shiinatakimod.orbs.STRStressOrb;
+import shiinatakimod.orbs.FutsuStressOrb;
 import shiinatakimod.util.CardStats;
 
 public class StressStrike
@@ -53,7 +52,7 @@ public class StressStrike
         for(int i=0; i<this.cost ; i++){
             addToBot(
                     new ChannelAction(
-                            new STRStressOrb()
+                            new FutsuStressOrb()
                     )
             );
         }

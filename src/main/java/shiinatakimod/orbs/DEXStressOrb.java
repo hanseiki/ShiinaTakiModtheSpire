@@ -8,7 +8,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
 import shiinatakimod.ShiinaTakiBasicMod;
 import shiinatakimod.actions.ConvertOrbAction;
 import shiinatakimod.powers.DrawNextTurnPower;
@@ -71,7 +70,7 @@ public class DEXStressOrb
         this.passiveAmount = this.basePassiveAmount;//计数器归零
         AbstractDungeon.actionManager.addToBottom(
                 new ConvertOrbAction(
-                        DEXStressOrb.class,NormalStressOrb.class,
+                        DEXStressOrb.class, FutsuStressOrb.class,
                         this.passiveAmount,this.evokeAmount
                 )
         );
