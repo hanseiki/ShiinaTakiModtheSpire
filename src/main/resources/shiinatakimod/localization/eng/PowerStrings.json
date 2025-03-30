@@ -33,7 +33,20 @@
   "${modID}:STRConvertOrb": {
     "NAME": "压力转为力量",
     "DESCRIPTIONS": [
-      "每当你打出攻击牌时，将 #b", " 转为 #b"," 个力量球"
+      "每当你打出攻击牌时，将 #b", " 个普通球转为 #b"," 个力量球，会增加伤害"
+    ]
+  },
+
+  "${modID}:DEXConvertOrb": {
+    "NAME": "压力转为敏捷",
+    "DESCRIPTIONS": [
+      "每当你打出技能牌时，将 #b", " 个普通球转为 #b"," 个敏捷球，会增加格挡"
+    ]
+  },
+  "${modID}:INTConvertOrb": {
+    "NAME": "压力转为智力",
+    "DESCRIPTIONS": [
+      "每当你打出能力牌时，将 #b", " 个普通球转为 #b"," 个智力球，会增加抽牌"
     ]
   }
 }

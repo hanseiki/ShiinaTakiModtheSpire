@@ -8,6 +8,8 @@ import com.megacrit.cardcrawl.powers.DrawPower;
 import shiinatakimod.cards.BaseCard;
 import shiinatakimod.cards.basic.Strike;
 import shiinatakimod.characters.ShiinaTakiCharacter;
+import shiinatakimod.powers.INTConvertOrbPower;
+import shiinatakimod.powers.STRConvertOrbPower;
 import shiinatakimod.util.CardStats;
 
 public class INTUnderStress
@@ -35,9 +37,13 @@ public class INTUnderStress
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
+        /*
         addToBot(
                 new ApplyPowerAction(p,p,new DrawPower(p,magicNumber),magicNumber)
         );
-
+         */
+        addToBot(
+                new ApplyPowerAction(p,p,new INTConvertOrbPower(p,magicNumber),magicNumber)
+        );
     }
 }

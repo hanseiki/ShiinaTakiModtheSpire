@@ -30,15 +30,17 @@ public class STRUnderStress
         super(ID, info); //Pass the required information to the BaseCard constructor.
 
         setMagic(STR, UPG_STR); //Sets the card's damage and how much it changes when upgraded.
-
-
+        setInnate(false,true);
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
+        /*
         addToBot(
                 new ApplyPowerAction(p,p,new StrengthPower(p,magicNumber),magicNumber)
         );
+
+         */
         addToBot(
                 new ApplyPowerAction(p,p,new STRConvertOrbPower(p,magicNumber),magicNumber)
         );

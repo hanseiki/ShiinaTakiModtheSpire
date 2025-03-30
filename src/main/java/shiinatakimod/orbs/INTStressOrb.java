@@ -2,35 +2,34 @@ package shiinatakimod.orbs;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.DiscardAction;
-import com.megacrit.cardcrawl.actions.unique.LoseEnergyAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
+import com.megacrit.cardcrawl.powers.DrawPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import shiinatakimod.ShiinaTakiBasicMod;
 import shiinatakimod.actions.ConvertOrbAction;
 import shiinatakimod.powers.DrawNextTurnPower;
 import shiinatakimod.powers.EnergizedNextTurnPower;
 
-public class STRStressOrb
+public class INTStressOrb         
         extends ShiinaTakiOrb{
-    public static final String ID = ShiinaTakiBasicMod.makeID("STRStressOrb");
+    public static final String ID = ShiinaTakiBasicMod.makeID("INTStressOrb");
     private static final OrbStrings orbString = CardCrawlGame.languagePack.getOrbString(ID);
     private static final String NAME = orbString.NAME;
     private static final String[] DESC = orbString.DESCRIPTION;
     private static final String IMG_PATH ="";
     private final AbstractPlayer p = AbstractDungeon.player;
 
-    public STRStressOrb(){
+    public INTStressOrb(){
         super(ID, NAME, DESC,IMG_PATH,
                 0,0);
 
     }
 
-    public STRStressOrb(int passiveAmount, int evokeAmount){
+    public INTStressOrb(int passiveAmount, int evokeAmount){
         super(
                 ID, NAME, DESC, IMG_PATH,
                 0, passiveAmount, 0, evokeAmount
@@ -72,7 +71,7 @@ public class STRStressOrb
         this.passiveAmount = this.basePassiveAmount;//计数器归零
         AbstractDungeon.actionManager.addToBottom(
                 new ConvertOrbAction(
-                        STRStressOrb.class,NormalStressOrb.class,
+                        INTStressOrb.class,NormalStressOrb.class,
                         this.passiveAmount,this.evokeAmount
                 )
         );
@@ -104,7 +103,7 @@ public class STRStressOrb
                 new ApplyPowerAction(
                         p,
                         p,
-                        new StrengthPower(p,1),
+                        new DrawPower(p,1),
                         1
                 )
         );
@@ -116,7 +115,7 @@ public class STRStressOrb
                 new ApplyPowerAction(
                         p,
                         p,
-                        new StrengthPower(p,-1),
+                        new DrawPower(p,-1),
                         -1
                 )
         );
@@ -130,7 +129,7 @@ public class STRStressOrb
         }
 
         this.description = DESC[0] + this.passiveAmount + DESC[1] +this.evokeAmount + DESC[2]
-                 + DESC[3] + this.evokeAmount +  DESC[4] ;
+                + DESC[3] + this.evokeAmount +  DESC[4] ;
 
     }
 

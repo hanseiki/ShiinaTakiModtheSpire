@@ -109,17 +109,17 @@
 
   "${modID}:STRUnderStress": {
     "NAME": "压力力量",
-    "DESCRIPTION": "获得 !M! 点力量。"
+    "DESCRIPTION": "获得 !M! 层每当使用攻击牌便转变出1个力量球。"
   },
 
   "${modID}:DEXUnderStress": {
     "NAME": "压力敏捷",
-    "DESCRIPTION": "获得 !M! 点敏捷。"
+    "DESCRIPTION": "获得 !M! 层每当使用技能牌便转变出1个敏捷球。"
   },
 
   "${modID}:INTUnderStress": {
     "NAME": "压力智力",
-    "DESCRIPTION": "获得 !M! 点回合开始抽牌。"
+    "DESCRIPTION": "获得 !M! 层每当使用技能牌便转变出1个智力球。"
   },
 
   "${modID}:StatusCard": {

@@ -8,6 +8,8 @@ import com.megacrit.cardcrawl.powers.DexterityPower;
 import shiinatakimod.cards.BaseCard;
 import shiinatakimod.cards.basic.Strike;
 import shiinatakimod.characters.ShiinaTakiCharacter;
+import shiinatakimod.powers.DEXConvertOrbPower;
+import shiinatakimod.powers.STRConvertOrbPower;
 import shiinatakimod.util.CardStats;
 
 public class DEXUnderStress
@@ -23,21 +25,25 @@ public class DEXUnderStress
 
     //These will be used in the constructor. Technically you can just use the values directly,
     //but constants at the top of the file are easy to adjust.
-    private static final int DEX = 2;
-    private static final int UPG_DEX = 1;
+    private static final int DEX = 1;
+    private static final int UPG_DEX = 0;
 
     public DEXUnderStress() {
         super(ID, info); //Pass the required information to the BaseCard constructor.
 
         setMagic(DEX, UPG_DEX); //Sets the card's damage and how much it changes when upgraded.
-
-
+        setInnate(false,true);
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
+        /*
         addToBot(
                 new ApplyPowerAction(p,p,new DexterityPower(p,magicNumber),magicNumber)
+        );
+         */
+        addToBot(
+                new ApplyPowerAction(p,p,new DEXConvertOrbPower(p,magicNumber),magicNumber)
         );
 
     }
