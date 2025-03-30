@@ -6,7 +6,6 @@ import com.megacrit.cardcrawl.actions.defect.ChannelAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import shiinatakimod.actions.TakiChannelAction;
 import shiinatakimod.cards.BaseCard;
 
 import shiinatakimod.characters.ShiinaTakiCharacter;
@@ -53,7 +52,7 @@ public class StressStrike
         );
         for(int i=0; i<this.cost ; i++){
             addToBot(
-                    new TakiChannelAction(
+                    new ChannelAction(
                             new STRStressOrb()
                     )
             );
