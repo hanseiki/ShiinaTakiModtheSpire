@@ -44,6 +44,7 @@ public class Saiaku
                 j++;
             }
         }
+
         for(int i = 2 ; i <= j; i = i + 2){
             addToBot(
                     new DamageAction(

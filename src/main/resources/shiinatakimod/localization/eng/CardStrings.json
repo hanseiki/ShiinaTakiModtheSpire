@@ -88,7 +88,7 @@
 
   "${modID}:Shabetta": {
     "NAME": "说话了",
-    "DESCRIPTION": "每个空球获得1点下回合格挡。 NL  不多于4个压力球，获得 !M! 点活力。 NL 不多于2个压力球，获得 !M! 点活力。。 "
+    "DESCRIPTION": "每个1空球获得 !B! 点下回合格挡。 NL  不多于4个压力球，获得 !M! 点活力。 NL 不多于2个压力球，获得 !M! 点活力。。 "
   },
 
   "${modID}:BurokkuShiteYaru": {

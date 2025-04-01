@@ -1,6 +1,9 @@
 package shiinatakimod.cards.common;
 
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.NextTurnBlockPower;
@@ -29,12 +32,15 @@ public class Shabetta
     //These will be used in the constructor. Technically you can just use the values directly,
     //but constants at the top of the file are easy to adjust.
     private static final int MAGIC = 4;
+    private static final int BLOCK = 2;
+
 
 
     public Shabetta() {
         super(ID, info); //Pass the required information to the BaseCard constructor.
 
         setMagic(MAGIC);
+        setBlock(BLOCK);
 
     }
 
@@ -50,7 +56,12 @@ public class Shabetta
         if(this.upgraded){
             j = j+this.magicNumber;
         }
-        addToBot(new ApplyPowerAction(p, p, new NextTurnBlockPower(p,j), j));
+
+        for(int i = 0 ; i < j; i = i + 1){
+            addToBot(
+                    new ApplyPowerAction(p, p, new NextTurnBlockPower(p,this.block),this.block )
+            );
+        }
 
         for (int i = 0; i < p.orbs.size(); i=i+1) {
             if (
