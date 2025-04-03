@@ -10,7 +10,7 @@
     ]
   },
 
-  "${modID}:NormalStressOrb": {
+  "${modID}:FutsuStressOrb": {
     "NAME": "普通压力球",
     "DESCRIPTION": [
       "倒计时： #b",

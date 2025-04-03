@@ -48,5 +48,11 @@
     "DESCRIPTIONS": [
       "每当你打出能力牌时，将 #b", " 个普通球转为 #b"," 个智力球，会增加抽牌"
     ]
+  },
+  "${modID}:ChannelNextTurn": {
+    "NAME": "回合开始生成球",
+    "DESCRIPTIONS": [
+      "下回合生成 #b", " 个 #b","  。"
+    ]
   }
 }
