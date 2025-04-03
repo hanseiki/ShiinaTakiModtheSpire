@@ -104,7 +104,7 @@ public class FutsuStressOrb extends ShiinaTakiOrb{
     // 创建一个 Orb 的副本（抽象方法，子类必须实现）
     @Override
     public AbstractOrb makeCopy() {
-        return null;
+        return new FutsuStressOrb();
     }
 
     // 渲染 Orb（抽象方法，子类必须实现）

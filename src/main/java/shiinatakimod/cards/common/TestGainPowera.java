@@ -3,6 +3,7 @@ package shiinatakimod.cards.common;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.orbs.Lightning;
 import shiinatakimod.cards.BaseCard;
 import shiinatakimod.characters.ShiinaTakiCharacter;
 import shiinatakimod.orbs.FutsuStressOrb;
@@ -35,7 +36,9 @@ public class TestGainPowera extends BaseCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
 
-        addToBot(new ApplyPowerAction(p,p,new ChannelOrbNextTurnPower(p,magicNumber,1,new FutsuStressOrb()),magicNumber)
+        addToBot(new ApplyPowerAction(p,p,
+                new ChannelOrbNextTurnPower(p,magicNumber,1,new Lightning()),
+                magicNumber)
         );
     }
 }

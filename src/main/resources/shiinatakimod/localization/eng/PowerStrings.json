@@ -52,7 +52,7 @@
   "${modID}:ChannelNextTurn": {
     "NAME": "回合开始生成球",
     "DESCRIPTIONS": [
-      "下回合生成 #b", " 个 #b","  。"
+      "下回合生成 #b", " 个 #b","球  。"
     ]
   }
 }

@@ -27,7 +27,7 @@ public class ChannelOrbNextTurnPower extends BasePower {
     private static final boolean TURN_BASED = true;
 
     private static int drawIdOffset = 0 ;
-    private AbstractOrb orbType;
+    private AbstractOrb orbType = null;
 
     public ChannelOrbNextTurnPower(AbstractCreature owner, int drawAmount){
         this(owner,drawAmount,1, new EmptyOrbSlot());
@@ -36,10 +36,11 @@ public class ChannelOrbNextTurnPower extends BasePower {
     public ChannelOrbNextTurnPower(AbstractCreature owner, int orbsAmount, int countDown, AbstractOrb newOrbType) {
         super(POWER_ID, TYPE, TURN_BASED, owner, orbsAmount);
         this.amount2 =countDown;
-        this.ID = POWER_ID+ this.amount2+"_";//+ newOrbType.name;
+        this.ID = POWER_ID+ this.amount2+"_" + newOrbType.name;
         this.canGoNegative = false;
         this.orbType = newOrbType;
         this.type = PowerType.DEBUFF;
+        this.updateDescription();//再orbType初始化后更新描述
     }
 
 
@@ -49,12 +50,28 @@ public class ChannelOrbNextTurnPower extends BasePower {
        this.flash();
        if(this.amount2 ==0){
            for(int i=0;i<this.amount;i++){
-               this.addToBot(new ChannelAction(this.orbType));
+               AbstractOrb newOrb = this.orbType.makeCopy();
+               this.addToBot(new ChannelAction(newOrb));
            }
            this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this.ID));
        }
 
     }
+
+
+    @Override
+    public void atEndOfTurn(boolean isPlayer) {
+        this.amount2 --;
+    }
+
+    @Override
+    public void updateDescription() {
+        if(this.orbType == null){
+            return;//调用构造方法super时，orbType还没初始化。
+        }
+        this.description = DESCRIPTIONS[0] + this.amount + DESCRIPTIONS[1] + this.orbType.name + DESCRIPTIONS[2];
+    }
+}
 /*
     @Override
     public void stackPower(int stackAmount) {
@@ -70,14 +87,3 @@ public class ChannelOrbNextTurnPower extends BasePower {
     }
 
  */
-
-    @Override
-    public void atEndOfTurn(boolean isPlayer) {
-        this.amount2 --;
-    }
-
-    @Override
-    public void updateDescription() {
-        this.description = DESCRIPTIONS[0] + this.amount + DESCRIPTIONS[1] ;//+ this.orbType.name + DESCRIPTIONS[2];
-    }
-}

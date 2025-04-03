@@ -5,6 +5,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import shiinatakimod.cards.BaseCard;
 import shiinatakimod.characters.ShiinaTakiCharacter;
+import shiinatakimod.orbs.FutsuStressOrb;
+import shiinatakimod.powers.ChannelOrbNextTurnPower;
 import shiinatakimod.powers.DrawNextTurnPower;
 import shiinatakimod.powers.EnergizedNextTurnPower;
 import shiinatakimod.util.CardStats;
@@ -21,7 +23,7 @@ public class TestGainPowerd extends BaseCard {
 
     //These will be used in the constructor. Technically you can just use the values directly,
     //but constants at the top of the file are easy to adjust.
-    private static final int MAGIC = -1;
+    private static final int MAGIC = 1;
     private static final int UPG_MAGIC = 2;
 
     public TestGainPowerd() {
@@ -34,7 +36,9 @@ public class TestGainPowerd extends BaseCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
 
         addToBot(
-                new ApplyPowerAction(p,p,new EnergizedNextTurnPower(p,magicNumber,3),magicNumber
+                new ApplyPowerAction(p,p,
+                        new ChannelOrbNextTurnPower(p,magicNumber,3,new FutsuStressOrb()),
+                        magicNumber
                 )
         );
     }

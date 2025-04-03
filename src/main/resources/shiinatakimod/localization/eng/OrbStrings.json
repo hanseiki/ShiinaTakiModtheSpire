@@ -11,7 +11,7 @@
   },
 
   "${modID}:FutsuStressOrb": {
-    "NAME": "普通压力球",
+    "NAME": "普通压力",
     "DESCRIPTION": [
       "倒计时： #b",
       " 回合后，弃一张牌，并获得下回合抽牌减少 #b",
@@ -23,7 +23,7 @@
   },
 
   "${modID}:STRStressOrb": {
-    "NAME": "力量压力球",
+    "NAME": "力量压力",
     "DESCRIPTION": [
       "被动：拥有 #b1 层力量。 NL 倒计时： #b",
       " 回合后，弃一张牌，并获得下回合抽牌减少 #b",
@@ -35,7 +35,7 @@
   },
 
   "${modID}:DEXStressOrb": {
-    "NAME": "敏捷压力球",
+    "NAME": "敏捷压力",
     "DESCRIPTION": [
       "被动：拥有 #b1 层敏捷。 NL 倒计时： #b",
       " 回合后，弃一张牌，并获得下回合抽牌减少 #b",
@@ -47,7 +47,7 @@
   },
 
   "${modID}:INTStressOrb": {
-    "NAME": "智力压力球",
+    "NAME": "智力压力",
     "DESCRIPTION": [
       "被动：拥有 #b1 层回合开始抽牌。 NL 倒计时： #b",
       " 回合后，弃一张牌，并获得下回合抽牌减少 #b",

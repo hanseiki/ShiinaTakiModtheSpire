@@ -14,19 +14,15 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-import guardian.GuardianMod;
-import guardian.actions.ReturnStasisCardToHandAction;
-import guardian.actions.StasisEvokeIfRoomInHandAction;
-import guardian.cards.AbstractGuardianCard;
-import guardian.cards.InStasisCard;
-import guardian.vfx.AddCardToStasisEffect;
+import shiinatakimod.ShiinaTakiBasicMod;
+
 
 public class StasisOrb extends ShiinaTakiOrb {
     public static final String[] DESC;
 
     private static final OrbStrings orbString;
 
-    public static final String ID = GuardianMod.makeID("StasisOrb");
+    public static final String ID = ShiinaTakiBasicMod.makeID("StasisOrb");
 
     public AbstractCard stasisCard;
 
@@ -212,5 +208,6 @@ public class StasisOrb extends ShiinaTakiOrb {
     }
 }
 
-
  */
+
+
