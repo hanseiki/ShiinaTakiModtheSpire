@@ -5,7 +5,10 @@ import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.actions.defect.ChannelAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.orbs.AbstractOrb;
+import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import shiinatakimod.cards.BaseCard;
 import shiinatakimod.characters.ShiinaTakiCharacter;
 import shiinatakimod.orbs.FutsuStressOrb;
@@ -24,14 +27,14 @@ public class MamakoStressStrike
 
     //These will be used in the constructor. Technically you can just use the values directly,
     //but constants at the top of the file are easy to adjust.
-    private static final int DAMAGE = 15;
-    private static final int UPG_DAMAGE = 5;
+    private static final int DAMAGE = 10;
+    private static final int MAGIC = 2;
 
     public MamakoStressStrike() {
         super(ID, info); //Pass the required information to the BaseCard constructor.
 
-        setDamage(DAMAGE, UPG_DAMAGE); //Sets the card's damage and how much it changes when upgraded.
-
+        setDamage(DAMAGE); //Sets the card's damage and how much it changes when upgraded.
+        setMagic(MAGIC);
         tags.add(CardTags.STRIKE);
     }
 
@@ -62,4 +65,35 @@ public class MamakoStressStrike
         }
 
     }
+
+
+    private int countOrbs() {
+        int count = 0;
+        for(AbstractOrb o : AbstractDungeon.player.orbs){
+            if(isStress(o)){
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    private boolean isStress(AbstractOrb o) {
+        return !(o instanceof EmptyOrbSlot);
+    }
+
+    public void calculateCardDamage(AbstractMonster mo) {
+        int realBaseDamage = this.baseDamage;
+        this.baseDamage += this.magicNumber * countOrbs();
+        super.calculateCardDamage(mo);
+        this.baseDamage = realBaseDamage;
+        this.isDamageModified = this.damage != this.baseDamage;
+    }
+    public void applyPowers() {
+        int realBaseDamage = this.baseDamage;
+        this.baseDamage += this.magicNumber * countOrbs();
+        super.applyPowers();
+        this.baseDamage = realBaseDamage;
+        this.isDamageModified = this.damage != this.baseDamage;
+    }
+
 }

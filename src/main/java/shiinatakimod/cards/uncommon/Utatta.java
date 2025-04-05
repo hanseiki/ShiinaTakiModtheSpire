@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DrawCardNextTurnPower;
 import com.megacrit.cardcrawl.powers.NextTurnBlockPower;
 import com.megacrit.cardcrawl.powers.RegenPower;
+import com.megacrit.cardcrawl.powers.RepairPower;
 import com.megacrit.cardcrawl.powers.watcher.VigorPower;
 import shiinatakimod.cards.BaseCard;
 import shiinatakimod.characters.ShiinaTakiCharacter;
@@ -47,7 +48,7 @@ public class Utatta
                 j++;
             }
         }
-        for(int i = 2 ; i <= j; i = i + 2){
+        for(int i = 3 ; i <= j; i = i + 3){
             addToBot(
                     new ApplyPowerAction(p, p, new DrawCardNextTurnPower(p,1),1 )
             );
@@ -56,14 +57,14 @@ public class Utatta
         if(j-k ==0){
             addToBot(new ChannelAction(new FutsuStressOrb()));
         }
-        if(10*j-9*k >= 0){
-            addToBot(new ApplyPowerAction(p, p, new RegenPower(p,this.magicNumber),this.magicNumber));
+        if(10*j-9*k >= 0 && this.upgraded){
+            addToBot(new ApplyPowerAction(p, p, new RepairPower(p,this.magicNumber),this.magicNumber));
         }
         if(10*j-8*k >= 0){
-            addToBot(new ApplyPowerAction(p, p, new RegenPower(p,this.magicNumber),this.magicNumber));
+            addToBot(new ApplyPowerAction(p, p, new RepairPower(p,this.magicNumber),this.magicNumber));
         }
         if(10*j-7*k >= 0 && this.upgraded){
-            addToBot(new ApplyPowerAction(p, p, new RegenPower(p,this.magicNumber),this.magicNumber));
+            addToBot(new ApplyPowerAction(p, p, new RepairPower(p,this.magicNumber),this.magicNumber));
         }
 
 

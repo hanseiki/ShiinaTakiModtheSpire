@@ -33,7 +33,7 @@ public class Shabetta
     //These will be used in the constructor. Technically you can just use the values directly,
     //but constants at the top of the file are easy to adjust.
     private static final int MAGIC = 4;
-    private static final int BLOCK = 2;
+    private static final int BLOCK = 4;
 
 
 
@@ -53,7 +53,7 @@ public class Shabetta
                 j++;
             }
         }
-        for(int i = 1 ; i <= j; i = i + 1){
+        for(int i = 2 ; i <= j; i = i + 2){
             addToBot(
                     new ApplyPowerAction(p, p, new NextTurnBlockPower(p,this.block),this.block )
             );
@@ -63,7 +63,7 @@ public class Shabetta
         if(j-k ==0){
             addToBot(new ChannelAction(new FutsuStressOrb()));
         }
-        if(10*j-9*k >= 0){
+        if(10*j-9*k >= 0 && this.upgraded){
             addToBot(new ApplyPowerAction(p, p, new VigorPower(p,this.magicNumber),this.magicNumber));
         }
         if(10*j-8*k >= 0){
@@ -72,11 +72,5 @@ public class Shabetta
         if(10*j-7*k >= 0 && this.upgraded){
             addToBot(new ApplyPowerAction(p, p, new VigorPower(p,this.magicNumber),this.magicNumber));
         }
-
-
-
-
-
-
     }
 }

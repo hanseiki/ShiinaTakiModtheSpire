@@ -44,7 +44,7 @@ public class Waratta
                 j++;
             }
         }
-        for(int i = 3 ; i <= j; i = i + 3){
+        for(int i = 4 ; i <= j; i = i + 4){
             addToBot(
                     new ApplyPowerAction(p, p, new EnergizedPower(p,1),1 )
             );
@@ -54,7 +54,7 @@ public class Waratta
         if(j-k ==0){
             addToBot(new ChannelAction(new FutsuStressOrb()));
         }
-        if(10*j-9*k >= 0){
+        if(10*j-9*k >= 0 && this.upgraded){
             addToBot(new ApplyPowerAction(p, p, new ArtifactPower(p,this.magicNumber),this.magicNumber));
         }
         if(10*j-8*k >= 0){
