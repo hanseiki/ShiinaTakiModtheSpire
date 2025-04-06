@@ -140,6 +140,17 @@
     "DESCRIPTION": "获得 !M! 层每当使用技能牌便转变出1个智力球。"
   },
 
+  "${modID}:Mate_WakabaMutsmi": {
+    "NAME": "若叶睦",
+    "DESCRIPTION": "获得若叶睦",
+    "UPGRADE_DESCRIPTION": "触发若叶睦。",
+    "EXTENDED_DESCRIPTION": [
+      "You can put more text in here.",
+      "If you need to use it for stuff.",
+      "Blizzard is a good example for this."
+    ]
+  },
+
   "${modID}:StatusCard": {
     "NAME": "状态牌",
     "DESCRIPTION": "以下是状态牌。"

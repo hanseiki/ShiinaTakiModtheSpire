@@ -3,7 +3,11 @@ package shiinatakimod.cards;
 import basemod.BaseMod;
 import basemod.abstracts.CustomCard;
 import basemod.abstracts.DynamicVariable;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import shiinatakimod.ShiinaTakiBasicMod;
+import shiinatakimod.cards.uncommon.Mate_WakabaMutsmi;
 import shiinatakimod.util.CardStats;
 import shiinatakimod.util.TriFunction;
 import com.badlogic.gdx.graphics.Color;
@@ -674,5 +678,149 @@ public abstract class BaseCard extends CustomCard {
         public boolean isModified() {
             return forceModified || base != value;
         }
+    }
+
+    public Integer socketCount = 0;
+    public ArrayList<socketTypes> sockets = new ArrayList();
+    public socketTypes thisGemsType = null;
+
+    public static enum socketTypes {
+        MUTSUMI(Color.RED),
+        BLUE(Color.BLUE),
+        GREEN(Color.GREEN),
+        LIGHTBLUE(Color.SKY),
+        WHITE(Color.WHITE),
+        CYAN(Color.CYAN),
+        ORANGE(Color.ORANGE),
+        CRIMSON(Color.RED),
+        FRAGMENTED(Color.VIOLET),
+        SYNTHETIC(Color.DARK_GRAY),
+        PURPLE(Color.PURPLE),
+        YELLOW(Color.YELLOW);
+
+        public Color color;
+
+        private socketTypes(Color color) {
+            this.color = color.cpy();
+        }
+    }
+
+    // 保存宝石信息到misc字段（游戏内置的整数字段）
+    public void saveGemMisc() {
+        if (AbstractDungeon.player != null &&
+                AbstractDungeon.player.masterDeck.contains(this)) {
+
+            // misc字段结构：前两位是插槽数量，后续每两位代表一个宝石类型
+            this.misc = 10 + this.socketCount; // 10是基准值，防止数值过小
+
+            // 遍历所有已插入的宝石
+            for(int i = 0; i < this.sockets.size(); ++i) {
+                this.misc *= 100; // 左移两位腾出空间
+                int gemindex = 0;
+
+                // 根据宝石类型转换为数字编码
+                switch (this.sockets.get(i)) {
+                    case MUTSUMI: gemindex = 0; break;   // 红宝石=0
+                    case GREEN: gemindex = 1; break; // 绿宝石=1
+                    // ...其他宝石类型
+                }
+                this.misc += 10 + gemindex; // +10防止单数字问题
+            }
+        }
+    }
+    // 从misc字段加载宝石信息
+    public void loadGemMisc() {
+        this.sockets.clear(); // 清空现有宝石
+
+        if (this.misc > 0 && Integer.toString(this.misc).length() % 2 == 0) {
+            String miscString = Integer.toString(this.misc);
+
+            // 前两位是插槽数量（减去基准值10）
+            String socketCountString = miscString.substring(0, 2);
+            this.socketCount = Integer.parseInt(socketCountString) - 10;
+
+            // 处理后续的宝石编码
+            miscString = miscString.substring(2); // 去掉前两位
+            int loops = miscString.length() / 2;  // 计算宝石数量
+
+            for(int i = 0; i < loops; ++i) {
+                String gemCode = miscString.substring(0, 2);
+                switch (gemCode) {
+                    case "10": sockets.add(socketTypes.MUTSUMI); break; // 10表示红宝石
+                    case "11": sockets.add(GREEN); break; // 11绿宝石
+                    // ...其他宝石类型
+                }
+                miscString = miscString.substring(2); // 处理下一组
+            }
+        }
+    }
+    public void updateDescription() {
+        this.initializeDescription();
+    }
+    // 添加宝石到插槽
+    public void addGemToSocket(BaseCard gem, boolean removeFromDeck) {
+        if (removeFromDeck) {
+            AbstractDungeon.player.masterDeck.removeCard(gem); // 从牌组移除宝石卡
+        }
+        this.sockets.add(gem.thisGemsType); // 添加宝石类型到插槽
+        this.updateDescription(); // 更新卡牌描述
+        this.saveGemMisc(); // 保存到misc字段
+    }
+    // 使用宝石效果（卡牌使用时触发）
+    public void useGems(AbstractPlayer p, AbstractMonster m) {
+        for(socketTypes gem : this.sockets) {
+            switch (gem) {
+                case MUTSUMI: Mate_WakabaMutsmi.mateEffect(p,m); break; // 触发红宝石效果
+                case GREEN: Gem_Green.gemEffect(p, m); break;
+                // ...其他宝石效果
+            }
+        }
+    }
+    // 更新卡牌描述（添加宝石效果说明）
+    public String updateGemDescription(String desc, Boolean after) {
+        String addedDesc = "";
+        // 遍历所有插槽（socketCount是最大插槽数）
+        for(int i = 0; i < this.socketCount; ++i) {
+            if (this.sockets.size() > i) { // 如果有已插入的宝石
+                socketTypes gem = this.sockets.get(i);
+                if (after) addedDesc += " NL "; // NL 是换行符
+
+                // 根据宝石类型添加对应描述
+                switch (gem) {
+                    case MUTSUMI:
+                        addedDesc += Mate_WakabaMutsmi.UPGRADED_DESCRIPTION; // 红宝石升级描述
+                        break;
+                    case GREEN:
+                        addedDesc += Gem_Green.UPGRADED_DESCRIPTION;
+                        break;
+                    // ... 其他宝石类似
+                }
+            } else { // 空插槽的提示文本
+                addedDesc += CardCrawlGame.languagePack.getCharacterString("Guardian").TEXT[2];
+            }
+        }
+        // 根据参数决定描述添加位置（前/后）
+        return after ? desc + addedDesc : addedDesc + desc;
+    }
+    // 绘制单个插槽图标
+    private void renderSocket(SpriteBatch sb, Texture baseTexture, Integer i) {
+        float scale = this.drawScale * Settings.scale; // 计算缩放比例（适配分辨率）
+        float drawX = this.current_x - 256.0F; // 计算绘制坐标（居中）
+        float drawY = this.current_y - 256.0F;
+
+        // 绘制纹理参数说明：
+        // texture, x, y, 原点X, 原点Y, 宽, 高, 缩放X, 缩放Y, 旋转角度,
+        // 纹理起始X, 纹理起始Y, 纹理宽, 纹理高, 是否翻转X/Y
+        sb.draw(
+                baseTexture,
+                drawX, drawY,
+                256.0F, 256.0F,  // 原点位置（中心点）
+                512.0F, 512.0F,  // 纹理尺寸
+                scale, scale,    // 缩放比例
+                this.angle,      // 旋转角度（用于动画效果）
+                0, 0,            // 纹理起始坐标
+                512, 512,        // 纹理截取尺寸
+                false, false     // 不进行翻转
+        );
     }
 }

@@ -56,7 +56,7 @@ public class StressStrike
                         AbstractGameAction.AttackEffect.SLASH_VERTICAL
                 )
         );
-        for(int i=0; i<this.cost ; i++){
+        for(int i=0; i<this.costForTurn ; i++){
             addToBot(
                     new ChannelAction(
                             new FutsuStressOrb()

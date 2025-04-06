@@ -14,7 +14,7 @@ import shiinatakimod.powers.DrawNextTurnPower;
 import shiinatakimod.powers.EnergizedNextTurnPower;
 
 public class INTStressOrb         
-        extends ShiinaTakiOrb{
+        extends AbstractStressOrb {
     public static final String ID = ShiinaTakiBasicMod.makeID("INTStressOrb");
     private static final OrbStrings orbString = CardCrawlGame.languagePack.getOrbString(ID);
     private static final String NAME = orbString.NAME;
